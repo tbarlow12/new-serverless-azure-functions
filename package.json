@@ -1,0 +1,55 @@
+{
+  "name": "serverless-azure-functions",
+  "version": "1.0.0",
+  "description": "Provider plugin for the Serverless Framework v1.x which adds support for Azure Functions.",
+  "license": "MIT",
+  "main": "index.js",
+  "author": "Azure Functions",
+  "scripts": {
+    "test": "jest --config jestconfig.json",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+ },
+  "repository": {
+    "git": "https://github.com/serverless/serverless-azure-functions"
+  },
+  "homepage": "https://github.com/serverless/serverless-azure-functions",
+  "keywords": [
+    "serverless",
+    "serverless framework",
+    "serverless applications",
+    "serverless modules",
+    "azure functions",
+    "iot",
+    "internet of things",
+    "serverless.com"
+  ],
+  "dependencies": {
+    "az-login": "^0.3.0",
+    "azure-arm-resource": "^7.3.0",
+    "bluebird": "^3.4.6",
+    "jsonpath": "^0.2.11",
+    "lodash": "^4.16.6",
+    "request": "2.81.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.13",
+    "eslint": "3.19.0",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.4.5"
+  },
+  "optionalDependencies": {
+    "serverless-webpack": "^4.2.0",
+    "webpack": "^3.10.0"
+  },
+  "engines": {
+    "node": ">= 6.5.0"
+  }
+}
