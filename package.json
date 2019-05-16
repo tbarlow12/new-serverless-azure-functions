@@ -33,13 +33,16 @@
   "dependencies": {
     "az-login": "^0.3.0",
     "azure-arm-resource": "^7.3.0",
+    "azure-functions-core-tools": "^2.7.1158",
     "bluebird": "^3.4.6",
     "jsonpath": "^0.2.11",
     "lodash": "^4.16.6",
+    "ms-rest-azure": "^2.6.0",
     "request": "2.81.0"
   },
   "devDependencies": {
     "@types/jest": "^24.0.13",
+    "@types/node": "^12.0.2",
     "eslint": "3.19.0",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",

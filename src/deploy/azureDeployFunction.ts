@@ -1,7 +1,9 @@
+import { AzureProvider } from "../provider/azureProvider";
+
 export class AzureDeployFunction {
     serverless: any;
     options: any;
-    provider: any;
+    provider: AzureProvider;
     hooks: any;
     
     constructor(serverless, options) {
@@ -10,16 +12,18 @@ export class AzureDeployFunction {
         this.provider = this.serverless.getProvider('azure');
 
         this.hooks = {
-            'before:function:packageFunction': async () => await this.beforePackageFunction,
+            'deploy:function:packageFunction': async () => await this.packageFunction,
             'deploy:function:deploy': async () => await this.deployFunction,
         }
     }
 
-    beforePackageFunction = async () => {
-
+    packageFunction = async () => {
+        this.serverless.pluginManager.spawn('package:function');
     }
 
     deployFunction = async () => {
+        await this.provider.initialize(this.serverless, this.options);
+        await this.provider.
 
     }
 }

@@ -1,5 +1,7 @@
 import { ResourceManagementClient } from "azure-arm-resource"
 import { ServiceClientCredentials } from "ms-rest";
+import { loginWithServicePrincipalSecret } from "ms-rest-azure"
+
 
 
 const constants = {
@@ -32,13 +34,14 @@ export class AzureProvider {
         this.serverless.setProvider(constants.providerName, this);
     }
 
-    log = (message: string) => {
+    log(message: string) {
         this.serverless.cli.log(message);
     }
 
     async initialize(serverless, options) {
         this.serverless = serverless;
         this.options = options;
+        this.subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
 
         this.functionAppName = this.serverless.service.service;
         this.resourceGroupName = this.serverless.service.provider.resourceGroup || `${this.functionAppName}-rg`;
@@ -46,25 +49,32 @@ export class AzureProvider {
         return Promise.resolve();
     }
 
-    createResourceGroup = () => {
+    async login() {
+        this.principalCredentials = await loginWithServicePrincipalSecret(
+            process.env.AZURE_CLIENT_ID,
+            process.env.AZURE_CLIENT_SECRET,
+            process.env.AZURE_TENANT_ID
+        );
+
+    }    
+
+    createResourceGroup() {
         const client = this.resourceClient();
     }
 
-    createFunctionApp = () => {
+    createFunctionApp() {
         const client = this.resourceClient();
     }
 
-    deleteDeployment = () => {
+    deleteDeployment() {
         const client = this.resourceClient();
     }
 
-    deleteResourceGroup = () => {
+    deleteResourceGroup() {
         const client = this.resourceClient();
     }
 
-    resourceClient = () => {
+    resourceClient() {
         return new ResourceManagementClient.ResourceManagementClient(this.principalCredentials, this.subscriptionId);
     }
-
-
 }

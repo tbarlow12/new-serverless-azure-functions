@@ -1,3 +1,4 @@
+
 export class AzureDeploy {
     serverless: any;
     options: any;
@@ -21,7 +22,6 @@ export class AzureDeploy {
     }
 
     deploy = async () => {
-
     }
 
     afterDeploy = async () => {
