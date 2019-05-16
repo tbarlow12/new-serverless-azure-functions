@@ -38,7 +38,7 @@ export class AzureProvider {
         this.serverless.cli.log(message);
     }
 
-    async initialize(serverless, options) {
+    initialize(serverless, options) {
         this.serverless = serverless;
         this.options = options;
         this.subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
@@ -46,16 +46,20 @@ export class AzureProvider {
         this.functionAppName = this.serverless.service.service;
         this.resourceGroupName = this.serverless.service.provider.resourceGroup || `${this.functionAppName}-rg`;
         this.deploymentName = this.serverless.service.provider.deploymentName || `${this.resourceGroupName}-deployment`;
-        return Promise.resolve();
     }
 
     async login() {
-        this.principalCredentials = await loginWithServicePrincipalSecret(
-            process.env.AZURE_CLIENT_ID,
-            process.env.AZURE_CLIENT_SECRET,
-            process.env.AZURE_TENANT_ID
-        );
-
+        try {
+            this.principalCredentials = await loginWithServicePrincipalSecret(
+                process.env.AZURE_CLIENT_ID,
+                process.env.AZURE_CLIENT_SECRET,
+                process.env.AZURE_TENANT_ID
+            );
+        } catch(error) {
+            error.message = error.message || (error.body ? error.body.message : 'Failed logging in to Azure');
+            throw error;
+        }
+        
     }    
 
     createResourceGroup() {

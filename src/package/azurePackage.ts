@@ -1,7 +1,9 @@
+import { AzureProvider } from "../provider/azureProvider";
+
 export class AzurePackage {
     serverless: any;
     options: any;
-    provider: any;
+    provider: AzureProvider;
     hooks: any;
     
     constructor(serverless, options) {

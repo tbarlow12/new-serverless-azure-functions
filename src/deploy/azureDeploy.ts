@@ -1,8 +1,9 @@
+import { AzureProvider } from "../provider/azureProvider";
 
 export class AzureDeploy {
     serverless: any;
     options: any;
-    provider: any;
+    provider: AzureProvider;
     hooks: any;
     
     constructor(serverless, options) {
@@ -17,14 +18,29 @@ export class AzureDeploy {
         }
     }
 
-    beforeDeploy = async () => {
+    async beforeDeploy () {
 
     }
 
-    deploy = async () => {
-    }
-
-    afterDeploy = async () => {
+    async deploy () {
 
     }
+
+    async afterDeploy () {
+
+    }
+
+    async cleanUpFunctions () {
+
+    }
+
+    async createResourceGroupAndFunctionApp() {
+        
+    }
+
+    async uploadFunctions() {
+
+    }
+
+
 }
